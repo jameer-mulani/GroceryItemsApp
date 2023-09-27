@@ -14,7 +14,7 @@ class ShoppingListHomePage extends StatefulWidget {
 
 class _ShoppingListHomePageState extends State<ShoppingListHomePage> {
 
-  final List<GroceryItem> items = [];
+  final List<GroceryItem> _items = [];
 
 
   void _onItemAddClicked() async {
@@ -25,9 +25,15 @@ class _ShoppingListHomePageState extends State<ShoppingListHomePage> {
     ));
     if(data!= null){
       setState(() {
-        items.add(data);
+        _items.add(data);
       });
     }
+  }
+  
+  void _onItemDismissed(GroceryItem item){
+    setState(() {
+      _items.remove(item);
+    });
   }
 
   @override
@@ -35,11 +41,16 @@ class _ShoppingListHomePageState extends State<ShoppingListHomePage> {
 
     Widget content = ListView(
       children: [
-        ...items.map((e) => ShoppingListItem(groceryItem: e))
+        ..._items.map((e) => Dismissible(
+            onDismissed: (direction) {
+              _onItemDismissed(e);
+            },
+            key: ValueKey(e.id),
+            child: ShoppingListItem(groceryItem: e)))
       ],
     );
 
-    if(items.isEmpty){
+    if(_items.isEmpty){
       content = Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

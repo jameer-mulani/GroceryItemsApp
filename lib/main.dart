@@ -10,7 +10,7 @@ final appTheme = ThemeData.dark().copyWith(
     useMaterial3: true,
     textTheme: GoogleFonts.aBeeZeeTextTheme(),
     colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.dark, seedColor: Colors.orange));
+        brightness: Brightness.dark, seedColor: Colors.deepPurpleAccent));
 
 class ShoppingListApp extends StatelessWidget {
   const ShoppingListApp({super.key});
